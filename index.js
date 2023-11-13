@@ -1,9 +1,28 @@
 const express = require ("express")
+const { request } = require("http")
 const path = require("path")
 
 const app = express()
 
 const caminhoBase = path.join(__dirname, "templates")
+
+app.use(express.urlencoded({
+    extended: true
+}))
+
+app.use(express.json())
+
+app.post('/cadastrar/salvar', (requisicao, resposta) => {
+    const nome = requisicao.body.nome
+    const email = requisicao.body.email
+    const senha = requisicao.body.senha
+
+    console.log(`O email do usuario é: ${email}`)
+})
+
+app.get('/cadastrar', (requisicao, resposta) => {
+    resposta.sendFile(`${caminhoBase}/cadastro.html`) 
+})
 
 // http://localhost:3000/usuarios/20
 
